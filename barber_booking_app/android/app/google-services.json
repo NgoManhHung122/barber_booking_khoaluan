@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "561884884510",
+    "project_id": "barberapp-6dd4a",
+    "storage_bucket": "barberapp-6dd4a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:561884884510:android:9a6bf629cc244b16e0080f",
+        "android_client_info": {
+          "package_name": "com.hungngo.barber_booking_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkt1G4G4q9x4c-SNXNmafcewPHeoIzw-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
