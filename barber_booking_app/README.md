@@ -10,6 +10,12 @@ Link Github:
 + shared preference to save local
 
 ## Getting Started
++ Cách chạy app:
+  +Tải app về và giải nén
+  +Mở VSC và tải extension Dart và Flutter
+  +Vào terminal bấm flutter pub get
+  +Chọn thiết bị ở góc dưới cùng bên phải VSC
+  +Cuối cùng vào file main và bấn Run Without Debugging để chạy
 
 + Đăng nhập với tư cách admin: 
   + admin
