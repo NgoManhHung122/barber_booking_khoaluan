@@ -23,7 +23,7 @@ Link Github:
 + Đăng nhập với tư cách người dùng => Tạo tài khoản
 
 Demo với các hình ảnh chính:
-
++Giao diện của user
 
 https://imgur.com/nSRUbC0
 
