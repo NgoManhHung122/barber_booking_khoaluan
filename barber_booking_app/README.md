@@ -10,6 +10,7 @@ Link Github:
 + shared preference to save local
 
 ## Getting Started
+
 + Cách chạy app:
   +Tải app về và giải nén
   +Mở VSC và tải extension Dart và Flutter
@@ -23,6 +24,7 @@ Link Github:
 + Đăng nhập với tư cách người dùng => Tạo tài khoản
 
 Demo với các hình ảnh chính:
+
 +Giao diện của user
 
 https://imgur.com/nSRUbC0
