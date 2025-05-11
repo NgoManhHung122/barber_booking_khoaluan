@@ -24,6 +24,7 @@ class _BookingState extends State<Booking> {
 
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
+
   @override
   void initState() {
     super.initState();
@@ -37,18 +38,39 @@ class _BookingState extends State<Booking> {
     setState(() {});
   }
 
-  Future<void> _selectTime(BuildContext context) async {
-    final nowFull = DateTime.now();
-    // Cắt giây/mili-giây để chỉ còn độ chính xác đến phút
-    final now = DateTime(
-        nowFull.year, nowFull.month, nowFull.day, nowFull.hour, nowFull.minute);
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    );
+    
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        // Reset time nếu chọn ngày hiện tại
+        if (picked.day == DateTime.now().day && 
+            picked.month == DateTime.now().month && 
+            picked.year == DateTime.now().year) {
+          _selectedTime = TimeOfDay.now();
+        }
+      });
+    }
+  }
 
-    // Xác định initialTime như cũ
-    final initialTime = (_selectedDate.year == now.year &&
-            _selectedDate.month == now.month &&
-            _selectedDate.day == now.day)
-        ? TimeOfDay.fromDateTime(nowFull)
-        : _selectedTime;
+  Future<void> _selectTime(BuildContext context) async {
+    final DateTime now = DateTime.now();
+    final TimeOfDay initialTime;
+    
+    // Nếu chọn ngày hôm nay -> chỉ cho phép chọn giờ trong tương lai
+    if (_selectedDate.day == now.day &&
+        _selectedDate.month == now.month &&
+        _selectedDate.year == now.year) {
+      initialTime = TimeOfDay.fromDateTime(now.add(Duration(minutes: 1)));
+    } else {
+      initialTime = _selectedTime;
+    }
 
     final TimeOfDay? picked = await showTimePicker(
       context: context,
@@ -64,17 +86,17 @@ class _BookingState extends State<Booking> {
         picked.minute,
       );
 
-      // So sánh với now đã truncate
-      if (selectedDateTime.isBefore(now)) {
+      if (selectedDateTime.isBefore(DateTime.now())) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("Cannot select a past time!"),
-            backgroundColor: Colors.redAccent,
+            backgroundColor: Colors.red,
           ),
         );
-      } else {
-        setState(() => _selectedTime = picked);
+        return;
       }
+
+      setState(() => _selectedTime = picked);
     }
   }
 
@@ -386,7 +408,7 @@ class _BookingState extends State<Booking> {
 
             //  Chọn Ngày
             GestureDetector(
-              onTap: () => _selectTime(context),
+              onTap: () => _selectDate(context),
               child: _buildOptionTile(Icons.calendar_month, "Select Date",
                   "${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}"),
             ),
